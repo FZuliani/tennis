@@ -21,7 +21,6 @@ export class LoginService extends DataServiceComponent {
     public checkCredentials(credentials: any, showMessage: boolean) {
       
       this.getLoginUrl();
-      debugger;
       let resp = this.getLogin(this.loginUrl, credentials);
       resp.subscribe({
         next: (response) =>{
