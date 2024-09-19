@@ -16,34 +16,38 @@ export class LoginService extends DataServiceComponent {
    }
 
   public override getLoginUrl() {
-
     this.loginUrl = environment.API_BASE_URL + this.API_ENDPOINT_EXTENSION_LOGIN;
-    }
+  }
 
 
-    public checkCredentials(credentials: any, showMessage: boolean) {
-      
-      this.getLoginUrl();
-      let resp = this.getLogin(this.loginUrl, credentials);
-      resp.subscribe({
-        next: (response) =>{
-          let result = response;
-          if(result){
-            console.log('result: ', result);
-            let fieldValues = JSON.parse(result);
-            let keys = Object.keys(fieldValues);
-            let values = keys.map(k => fieldValues[k]);
-            if (keys[0] == 'jwtToken'){
-              localStorage.setItem('loggedIn', 'logged');
-              this.cookiesService.set('token', values[0]);
-              this.cookiesService.set('username', values[1]);
-              this.cookiesService.set('role', values[2]);
-              if(showMessage){
-                //this.showToasterSuccess("login", "success");
-              }
+  public checkCredentials(credentials: any, showMessage: boolean){
+    this.getLoginUrl();
+
+    let resp = this.getLogin(this.loginUrl, credentials)
+    resp.subscribe({
+      next: (response) => {
+        let result = response
+
+
+        if(result){
+          console.log("The response : ",response)
+          let fieldValues = JSON.parse(result);
+          let keys = Object.keys(fieldValues);
+          let values = keys.map(k => fieldValues[k])
+          if(keys[1] == "jwtToken"){
+            localStorage.setItem('loggedIn', 'logged')
+            this.cookiesService.deleteAll;
+            this.cookiesService.set("token", values[1])
+            this.cookiesService.set("username",values[0]);
+            if(showMessage){
+              alert("Welcome to tennis !")
             }
           }
+
         }
-    });
-    }
+      }, 
+      error: (err) => {alert("Connection error")},
+      complete: () => {console.info('complete')}
+    })
+  }
 }

@@ -14,7 +14,19 @@
         <li class="nav-item">
           <a class="nav-link" href="/contact" (click)="selectOption('Contact')">Contact</a>
         </li>
+
+         <!-- Dropdown for Administrator -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="administratorDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Administrator
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="administratorDropdown">
+          <li><a class="dropdown-item" (click)="selectOption('users')">Manage Users</a></li>
+          <li><a class="dropdown-item" (click)="selectOption('settings')">Settings</a></li>
+        </ul>
+      </li>
       </ul>
+      
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
           <a class="btn btn-primary" href="/login" (click)="selectOption('Login')">Login</a>
