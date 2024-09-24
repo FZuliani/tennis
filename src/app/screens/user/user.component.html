@@ -28,7 +28,9 @@
                     <td style="width: 20%;">
                         <button *ngIf="!user.isEditing" class="btn btn-primary me-2" (click)="editUser(user)">Éditer</button>
                         <button *ngIf="user.isEditing" class="btn btn-success me-2" (click)="saveUser(user)">Sauvegarder</button>
-                        <button class="btn btn-danger" (click)="deleteUser(user)">Supprimer</button>
+                        <button *ngIf="user.actif" class="btn btn-danger" (click)="deActivateUser(user)">Desactiver</button>
+                        <button *ngIf="!user.actif" class="btn btn-success" (click)="deActivateUser(user)">Activer</button>
+
                     </td>
                 </tr>
             </tbody>

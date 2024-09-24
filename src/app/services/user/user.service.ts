@@ -84,4 +84,23 @@ export class UserService extends DataServiceComponent {
     });
   }
 
+  public deleteUser(id: number) {
+    this.getUrlDelete();
+
+    let token = this.cookiesService.get('token');
+    let resp = this.delete(this.url, token, id.toString());
+    
+    return new Promise((resolve, reject) => {
+        resp.subscribe({
+            next: (response) => {
+                resolve(response);
+            },
+            error: (err) => {
+                reject(err);
+            },
+            complete: () => { console.info('complete'); }
+        });
+    });
+  }
+
 }

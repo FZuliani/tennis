@@ -48,7 +48,7 @@ export abstract class DataServiceComponent  {
   public delete(url: string, token: string, id: string): Observable<any> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set("Authorization", tokenStr);
-    return this.httpClient.delete(url + '/' + id, { headers, responseType: 'json' })
+    return this.httpClient.delete(url + id, { headers, responseType: 'json' })
         .pipe((catchError((err: any, caught: Observable<any>) => {
             return throwError(this.generalErrorHandler(err, caught))
         })))

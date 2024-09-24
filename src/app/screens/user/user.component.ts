@@ -8,6 +8,7 @@ export class userElement{
   email: string;
   username: string;
   isEditing: boolean = false;
+  actif: boolean = true;
 
   constructor(){
     this.id = 0;
@@ -48,8 +49,9 @@ export class UserComponent implements OnInit {
     this.userlist = response as userElement[];
   }
 
-  deleteUser(user: any){
+  async deActivateUser(user: any){
     this.userlist= this.userlist.filter(s => s.id !== user.id);
+    await this.userService.deleteUser(user.id);
     this.refreshUserList();
   }
 
