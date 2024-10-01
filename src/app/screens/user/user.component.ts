@@ -38,6 +38,7 @@ export class RoleElement{
 export class UserComponent implements OnInit {
   userlist : UserElement[] = [];
   rolesList : RoleElement[] = [];
+  roleService: any;
 
   constructor(
    private userService: UserService
