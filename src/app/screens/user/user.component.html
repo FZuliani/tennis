@@ -9,28 +9,33 @@
             <thead>
                 <tr>
                     <th style="width: 10%;">Id</th>
-                    <th style="width: 30%;">e-mail</th>
-                    <th style="width: 30%;">Username</th>
-                    <th style="width: 20%;">Actions</th>
+                    <th style="width: 20%;">e-mail</th>
+                    <th style="width: 25%;">Username</th>
+                    <th style="width: 15%;">Roles</th>
+                    <th style="width: 15%;">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let user of userlist">
                     <td style="width: 10%;">{{ user.id }}</td>
-                    <td style="width: 30%;">
+                    <td style="width: 20%;">
                         <span *ngIf="!user.isEditing">{{ user.email }}</span>
                         <input *ngIf="user.isEditing" [(ngModel)]="user.email" class="form-control" />
                     </td>
-                    <td style="width: 30%;">
+                    <td style="width: 25%;">
                         <span *ngIf="!user.isEditing">{{ user.username }}</span>
                         <input *ngIf="user.isEditing" [(ngModel)]="user.username" class="form-control" />
                     </td>
-                    <td style="width: 20%;">
+                    <td style="width: 15%;">
+                        <ul>
+                            <li *ngFor="let role of user.roles">{{ role }}</li>
+                        </ul>
+                    </td>
+                    <td style="width: 15%;">
                         <button *ngIf="!user.isEditing" class="btn btn-primary me-2" (click)="editUser(user)">Éditer</button>
                         <button *ngIf="user.isEditing" class="btn btn-success me-2" (click)="saveUser(user)">Sauvegarder</button>
                         <button *ngIf="user.actif" class="btn btn-danger" (click)="deActivateUser(user)">Desactiver</button>
                         <button *ngIf="!user.actif" class="btn btn-success" (click)="deActivateUser(user)">Activer</button>
-
                     </td>
                 </tr>
             </tbody>

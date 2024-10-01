@@ -3,10 +3,11 @@ import { UserService } from '../../services/user/user.service';
 
 
 
-export class userElement{
+export class UserElement{
   id: number;
   email: string;
   username: string;
+  roles: string[];
   isEditing: boolean = false;
   actif: boolean = true;
 
@@ -15,6 +16,17 @@ export class userElement{
     this.email = '';
     this.username = '';
     this.isEditing = false;
+    this.roles = [];
+  }
+}
+
+export class RoleElement{
+  id: number;
+  name: string;
+
+  constructor(){
+    this.id = 0;
+    this.name = '';
   }
 }
 
@@ -24,7 +36,8 @@ export class userElement{
   styleUrl: './user.component.css'
 })
 export class UserComponent implements OnInit {
-  userlist : userElement[] = [];
+  userlist : UserElement[] = [];
+  rolesList : RoleElement[] = [];
 
   constructor(
    private userService: UserService
@@ -33,6 +46,11 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshUserList();
+  }
+
+  async refreshRoleList(){
+    let response = await this.roleService.getAllRoles();
+    this.rolesList = response as RoleElement[];
   }
 
    async saveUser(user: any){
@@ -46,7 +64,7 @@ export class UserComponent implements OnInit {
 
   async refreshUserList() {
     let response = await this.userService.getAllUsers();
-    this.userlist = response as userElement[];
+    this.userlist = this.mapUsersFromApi(response as UserElement[]);
   }
 
   async deActivateUser(user: any){
@@ -56,9 +74,23 @@ export class UserComponent implements OnInit {
   }
 
   addUser(){
-    let user = new userElement();
+    let user = new UserElement();
     user.isEditing = true;
     this.userlist.push(user);
   }
+
+  mapUsersFromApi(usersFromApi: any[]) : UserElement[]{
+    return usersFromApi.map((apiUser) => {
+      const user = new UserElement();
+      user.id = apiUser.id;
+      user.email = apiUser.email;
+      user.username = apiUser.username;
+      user.roles = apiUser.roles.map((role: any) => role.name);
+      return user;
+        });
+    }
 }
+  
+
+
 
