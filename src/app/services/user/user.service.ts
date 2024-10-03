@@ -67,6 +67,7 @@ export class UserService extends DataServiceComponent {
     this.getUrlUpdate();
 
     let token = this.cookiesService.get('token');
+    alert(this.url +'')
     let resp = this.update(this.url + updateUser.id, token, updateUser);
     return new Promise((resolve, reject) => {
         resp.subscribe({

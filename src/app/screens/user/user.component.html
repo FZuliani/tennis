@@ -4,7 +4,7 @@
             <h4>Users Management Portal</h4>
         </div>
     </div>
-    <div class="container mt-4">
+    <div class="container mt-4" id="table_Users">
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
@@ -27,9 +27,16 @@
                         <input *ngIf="user.isEditing" [(ngModel)]="user.username" class="form-control" />
                     </td>
                     <td style="width: 15%;">
-                        <ul>
-                            <li *ngFor="let role of user.roles">{{ role }}</li>
-                        </ul>
+                        <div *ngIf="!user.isEditing">                            
+                            <ul>
+                                <li *ngFor="let role of user.roles">{{ role }}</li>
+                            </ul>
+                        </div>
+                        <div *ngIf="user.isEditing">
+                            <select [(ngModel)]="user.roles" multiple class="form-control">
+                                <option *ngFor="let role of rolesList" [value]="role">{{ role.name }}</option>
+                            </select>   
+                        </div>                     
                     </td>
                     <td style="width: 15%;">
                         <button *ngIf="!user.isEditing" class="btn btn-primary me-2" (click)="editUser(user)">Éditer</button>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user/user.service';
+import { RoleService } from '../../services/user/role.service';
 
 
 
@@ -38,15 +39,26 @@ export class RoleElement{
 export class UserComponent implements OnInit {
   userlist : UserElement[] = [];
   rolesList : RoleElement[] = [];
-  roleService: any;
 
   constructor(
-   private userService: UserService
+   private userService: UserService,
+    private roleService: RoleService
   ) {
    }
 
   ngOnInit(): void {
     this.refreshUserList();
+    this.refreshRoleList();
+  }
+
+  convertValueToIndex(value : string){
+    let index = 0;
+    this.rolesList.forEach((role, i) => {
+      if(role.name === value){
+        index = i;
+      }
+    });
+    return index;
   }
 
   async refreshRoleList(){
@@ -56,6 +68,7 @@ export class UserComponent implements OnInit {
 
    async saveUser(user: any){
     user.isEditing = false;
+    console.log(user);
     let id = await this.userService.updateUser(user);
   }
 
