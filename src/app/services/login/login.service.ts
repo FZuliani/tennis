@@ -40,7 +40,7 @@ export class LoginService extends DataServiceComponent {
             this.cookiesService.set("token", values[1])
             this.cookiesService.set("username",values[0]);
             if(showMessage){
-              alert("Welcome to tennis !")
+              window.location.href = '/home';
             }
           }
 
