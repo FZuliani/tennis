@@ -1,14 +1,14 @@
 <div class="d-flex justify-content-end mt-4">
-    <button class="btn btn-success">Create New Court</button>
+    <button class="btn btn-success" (click)="formCreateCourt()">Create New Court</button>
 </div>
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-4" *ngFor="let court of courts">
             <div class="card mb-4">
-                <img src="{{court.image}}" class="card-img-top" alt="{{court.name}}">
+                <img src="{{court.image_profile}}" class="card-img-top" alt="{{court.name}}">
                 <div class="card-body">
                     <h5 class="card-title">{{court.name}}</h5>
-                    <p class="card-text">{{court.description}}</p>
+                    <p class="card-text">{{court.is_indoor}}</p>
                     <a href="#" class="btn btn-primary">View Details</a>
                 </div>
             </div>

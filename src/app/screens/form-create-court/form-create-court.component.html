@@ -1,0 +1,37 @@
+<!-- Button to open the modal -->
+<button type="button" data-bs-toggle="modal" data-bs-target="#createCourtModal">
+    Create Court
+</button>
+
+<!-- The Modal -->
+<div class="modal fade" id="createCourtModal" tabindex="-1" aria-labelledby="createCourtModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createCourtModalLabel">Create Court</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="courtName" class="form-label">Court Name</label>
+                        <input type="text" class="form-control" id="courtName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="courtLocation" class="form-label">Location</label>
+                        <input type="text" class="form-control" id="courtLocation" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="courtType" class="form-label">Court Type</label>
+                        <select class="form-select" id="courtType" required>
+                            <option value="clay">Clay</option>
+                            <option value="grass">Grass</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
