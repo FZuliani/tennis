@@ -45,6 +45,15 @@ export abstract class DataServiceComponent  {
         })))
   };
 
+  public getById(url: string, id: string, token: string): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set("Authorization", tokenStr);
+    return this.httpClient.get(url + id, { headers, responseType: 'json' })
+        .pipe((catchError((err: any, caught: Observable<any>) => {
+            return throwError(this.generalErrorHandler(err, caught))
+        })))
+  }
+
   public delete(url: string, token: string, id: string): Observable<any> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set("Authorization", tokenStr);

@@ -9,6 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class CourtService extends DataServiceComponent {
 
   private API_ENDPOINT_EXTENSION_GET_ALL : String = 'tennisCourts';
+  private API_ENDPOINT_EXTENSION_GET_BY_ID : String = 'tennisCourt/';
 
   constructor(private cookiesService: CookieService) {
     super();
@@ -16,6 +17,10 @@ export class CourtService extends DataServiceComponent {
 
   public override getUrlAll(){
     this.url = environment.API_BASE_URL + this.API_ENDPOINT_EXTENSION_GET_ALL;
+  }
+
+  public override getUrlGet(){
+    this.url = environment.API_BASE_URL + this.API_ENDPOINT_EXTENSION_GET_BY_ID;
   }
 
   public getCourts()  {
@@ -29,6 +34,26 @@ export class CourtService extends DataServiceComponent {
             },
             error: (err) => {
                 alert("Error while getting courts");
+                reject(err);
+            },
+            complete: () => {
+                console.log('done');
+            }
+        });
+    });
+  }
+
+  public getCourtById(id: string) {
+    this.getUrlGet();
+    let token = this.cookiesService.get('token');
+    let resp = this.getById(this.url, id, token)
+    return new Promise((resolve, reject) => {
+        resp.subscribe({
+            next: (response) => {
+                resolve(response);
+            },
+            error: (err) => {
+                alert("Error while getting court");
                 reject(err);
             },
             complete: () => {

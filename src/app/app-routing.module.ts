@@ -5,7 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { UserComponent } from './screens/user/user.component';
-import { CourtComponent } from './screens/court/court.component';
+import { CourtComponent } from './screens/courts/courts.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
