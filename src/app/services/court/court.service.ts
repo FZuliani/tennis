@@ -10,6 +10,7 @@ export class CourtService extends DataServiceComponent {
 
   private API_ENDPOINT_EXTENSION_GET_ALL : String = 'tennisCourts';
   private API_ENDPOINT_EXTENSION_GET_BY_ID : String = 'tennisCourt/';
+  private API_ENDPOINT_EXTENSION_CREATE : String = 'tennisCourt';
 
   constructor(private cookiesService: CookieService) {
     super();
@@ -21,6 +22,10 @@ export class CourtService extends DataServiceComponent {
 
   public override getUrlGet(){
     this.url = environment.API_BASE_URL + this.API_ENDPOINT_EXTENSION_GET_BY_ID;
+  }
+
+  public override getUrlCreate(){
+    this.url = environment.API_BASE_URL + this.API_ENDPOINT_EXTENSION_CREATE;
   }
 
   public getCourts()  {
@@ -54,6 +59,27 @@ export class CourtService extends DataServiceComponent {
             },
             error: (err) => {
                 alert("Error while getting court");
+                reject(err);
+            },
+            complete: () => {
+                console.log('done');
+            }
+        });
+    });
+  }
+
+  public createCourt(court: any) {
+    this.getUrlCreate();
+    let token = this.cookiesService.get('token');
+    alert(this.url +'');
+    let resp = this.create(this.url, token, court)
+    return new Promise((resolve, reject) => {
+        resp.subscribe({
+            next: (response) => {
+                resolve(response);
+            },
+            error: (err) => {
+                alert("Error while creating court");
                 reject(err);
             },
             complete: () => {

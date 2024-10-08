@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormCreateCourtComponent } from '../form-create-court/form-create-court.component';
 import { CourtService } from '../../services/court/court.service';
 
 
@@ -8,10 +7,12 @@ export class CourtElement{
   is_indoor: boolean;
   name: string;
   image_profile: string; 
+  type_court: string;
 
   constructor(){
     this.id = 0;
     this.is_indoor = false;
+    this.type_court = '';
     this.name = '';
     this.image_profile = '';
   }
@@ -25,6 +26,7 @@ export class CourtElement{
 
 export class CourtComponent implements OnInit {
   courts: CourtElement[] = [];
+  courtToCreate: CourtElement = new CourtElement();
 
   constructor(
     private courtService: CourtService
@@ -34,10 +36,6 @@ export class CourtComponent implements OnInit {
     this.refreshListCourts();
   }
 
-  formCreateCourt() {
-    const formCourt = new FormCreateCourtComponent();
-    formCourt.displayForm();  
-  }
 
   async refreshListCourts() {
     let response = await this.courtService.getCourts();
@@ -50,9 +48,15 @@ export class CourtComponent implements OnInit {
     console.log(court);
   }
 
+  public createCourt() {
+    // Ajout du nouveau court à la liste des courts
+    this.courtToCreate.id = this.courts.length;
+    alert(this.courtToCreate);
+    this.courtService.createCourt(this.courtToCreate);
+
+    // Optionnel : Réinitialisation du formulaire
+    this.courtToCreate = new CourtElement();
+    const modalElement = document.getElementById('createCourtModal');
+    
+  }
 }
-
-
-
-
-

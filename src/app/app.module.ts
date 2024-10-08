@@ -10,7 +10,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UserComponent } from './screens/user/user.component';
 import { CourtComponent } from './screens/courts/courts.component';
-import { FormCreateCourtComponent } from './screens/form-create-court/form-create-court.component';
 
 @NgModule({
   declarations: [
@@ -19,8 +18,7 @@ import { FormCreateCourtComponent } from './screens/form-create-court/form-creat
     LoginComponent,
     NavbarComponent,
     UserComponent,
-    CourtComponent,
-    FormCreateCourtComponent
+    CourtComponent
   ],
   imports: [
     BrowserModule,

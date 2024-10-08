@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-end mt-4">
-    <button class="btn btn-success" (click)="formCreateCourt()">Create New Court</button>
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createCourtModal">Create New Court</button>
 </div>
 <div class="container mt-4">
     <div class="row">
@@ -8,9 +8,51 @@
                 <img src="{{court.image_profile}}" class="card-img-top" alt="{{court.name}}">
                 <div class="card-body">
                     <h5 class="card-title">{{court.name}}</h5>
-                    <p class="card-text">{{court.is_indoor}}</p>
+                    <p class="card-text">{{court.is_indoor ? 'Outdoor' : 'Indoor'}}</p>
                     <a href="#" class="btn btn-primary" (click)="detailCourt(court.id.toString())">View Details</a>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for creating a new court -->
+<div class="modal fade" id="createCourtModal" tabindex="-1" aria-labelledby="createCourtModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createCourtModalLabel">Create New Court</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Form content for creating a new court -->
+                <form>
+                    <div class="mb-3">
+                        <label for="courtName" class="form-label">Court Name</label>
+                        <input type="text" class="form-control" id="courtName" [(ngModel)]="courtToCreate.name" [ngModelOptions]="{standalone : true}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="courtImage" class="form-label">Court Image URL</label>
+                        <input type="text" class="form-control" id="courtImage" [(ngModel)]="courtToCreate.image_profile" [ngModelOptions]="{standalone : true}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="courtType" class="form-label">Court Type</label>
+                        <select class="form-select" id="courtType" [(ngModel)]="courtToCreate.type_court" [ngModelOptions]="{standalone : true}" required>
+                            <option [value]="true">Indoor</option>
+                            <option [value]="false">Outdoor</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-check-input" type="checkbox" id="isIndoor" [(ngModel)]="courtToCreate.is_indoor" [ngModelOptions]="{standalone : true}">
+                        <label class="form-check-label" for="isIndoor">
+                            Is Indoor
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="createCourt()">Save changes</button>
             </div>
         </div>
     </div>
