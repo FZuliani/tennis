@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { DataServiceComponent } from '../data/data.service';
 import { environment } from '../../../environments/environments';
 import { CookieService } from 'ngx-cookie-service';
+import { CourtElement } from '../../screens/courts/courts.component';
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +49,7 @@ export class CourtService extends DataServiceComponent {
     });
   }
 
-  public getCourtById(id: string) {
+  public getCourtById(id: string) : Promise<CourtElement> {
     this.getUrlGet();
     let token = this.cookiesService.get('token');
     let resp = this.getById(this.url, id, token)

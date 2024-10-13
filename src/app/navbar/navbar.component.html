@@ -16,10 +16,10 @@
         <a class="nav-link" href="/contact" (click)="selectOption('Contact')">Contact</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/court" (click)="selectOption('court')">Courts</a>
+        <a *ngIf="isLoged()" class="nav-link" href="/court" (click)="selectOption('court')">Courts</a>
       </li>
       <!-- Dropdown for Administrator -->
-      <li class="nav-item dropdown">
+      <li *ngIf="userHasRole('Luc')" class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="administratorDropdown" role="button" data-bs-toggle="dropdown"
           aria-expanded="false">
           Administrator
@@ -33,7 +33,8 @@
 
     <ul class="navbar-nav ms-auto">
       <li class="nav-item">
-        <a class="btn btn-primary" href="/login" (click)="selectOption('Login')">Login</a>
+        <a *ngIf="!isLoged()" class="btn btn-primary" href="/login" (click)="selectOption('Login')">Login</a>
+        <a *ngIf="isLoged()" class="btn btn-secondary" (click)="Logout()">Logout</a>
       </li>
     </ul>
   </div>

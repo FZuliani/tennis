@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CourtService } from '../../services/court/court.service';
-
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 export class CourtElement{
   id: number;
@@ -25,11 +26,14 @@ export class CourtElement{
 })
 
 export class CourtComponent implements OnInit {
+
   courts: CourtElement[] = [];
   courtToCreate: CourtElement = new CourtElement();
 
   constructor(
-    private courtService: CourtService
+    private courtService: CourtService,
+    private cookiesService: CookieService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -58,5 +62,12 @@ export class CourtComponent implements OnInit {
     this.courtToCreate = new CourtElement();
     const modalElement = document.getElementById('createCourtModal');
     
+  }
+
+  reserveCourt(idCourt: number) {
+    let user_name = this.cookiesService.get('userId');
+
+    //redirection vers reservation component
+    this.router.navigate([`/reservation/${idCourt}/${user_name}`]);
   }
 }

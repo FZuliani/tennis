@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { DataServiceComponent } from '../data/data.service';
 import { environment } from '../../../environments/environments';
 import { CookieService } from 'ngx-cookie-service';
+import { UserElement } from '../../screens/user/user.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService extends DataServiceComponent {
-
-
+  
   override loginUrl: string = '';
   override url: string = '';
 
@@ -97,6 +97,25 @@ export class UserService extends DataServiceComponent {
                 resolve(response);
             },
             error: (err) => {
+                reject(err);
+            },
+            complete: () => { console.info('complete'); }
+        });
+    });
+  }
+
+  public getUserById(id: string) : Promise<UserElement> {
+    this.getUrlGet();
+
+    let token = this.cookiesService.get('token');
+    let resp = this.getById(this.url, id, token);
+    return new Promise((resolve, reject) => {
+        resp.subscribe({
+            next: (response) => {
+                resolve(response);
+            },
+            error: (err) => {
+                alert("Error while getting user");
                 reject(err);
             },
             complete: () => { console.info('complete'); }

@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UserComponent } from './screens/user/user.component';
 import { CourtComponent } from './screens/courts/courts.component';
+import { ReservationComponent } from './screens/reservation/reservation/reservation.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { CourtComponent } from './screens/courts/courts.component';
     LoginComponent,
     NavbarComponent,
     UserComponent,
-    CourtComponent
+    CourtComponent,
+    ReservationComponent
   ],
   imports: [
     BrowserModule,

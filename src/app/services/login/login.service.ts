@@ -39,6 +39,9 @@ export class LoginService extends DataServiceComponent {
             this.cookiesService.deleteAll;
             this.cookiesService.set("token", values[1])
             this.cookiesService.set("username",values[0]);
+            this.cookiesService.set("role",values[2]);
+            alert(values[2].toString().split(",")[0]);
+            this.cookiesService.set("userId",values[2].toString().split(",")[0]);
             if(showMessage){
               window.location.href = '/home';
             }
