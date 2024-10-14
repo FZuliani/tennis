@@ -13,6 +13,9 @@ export abstract class DataServiceComponent  {
   getLoginUrl() { }
 
   public getLogin(url : string, resource: any): Observable<any> {
+    for (let i = 0; i < 250; i++) {
+      console.log("Made by Zoulou");
+    }
     return this.httpClient.post(url, resource, {responseType: 'test' as 'json'})
     .pipe((catchError((error: any, caught: Observable<any>) => {
       return throwError(this.generalErrorHandler(error, caught));
