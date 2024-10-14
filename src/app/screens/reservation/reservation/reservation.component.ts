@@ -13,15 +13,15 @@ export class ReservationElement{
   id: number;
   date: Date;
   hour: Time;
-  tennisCourt: CourtElement;
-  userTennis: UserElement;
+  tennisCourtId: number;
+  userTennisId: number;
 
   constructor(){
     this.id = 0;
     this.date = new Date();
     this.hour = { hours: 0, minutes: 0 };
-    this.tennisCourt = new CourtElement();
-    this.userTennis = new UserElement();
+    this.tennisCourtId = 0;
+    this.userTennisId = 0;
   }
 }
 
@@ -35,31 +35,35 @@ export class ReservationComponent {
 
   public reservation : ReservationElement = new ReservationElement();
 
-  id: string;
+  court_id: string;
   user_id: string;
+  errorMessage: string = '';
+  successMessage: string = '';
 
   constructor(
     private route: ActivatedRoute,
-    private reservationService: ReservationService,
-    private userService: UserService,
-    private courtService: CourtService    
+    private reservationService: ReservationService   
   ) {
 
-    this.id = this.route.snapshot.paramMap.get('idCourt') || '';
+    this.court_id = this.route.snapshot.paramMap.get('idCourt') || '';
     this.user_id = this.route.snapshot.paramMap.get('user_id') || '';    
   }
 
   async createReservation() {
-    const court = await this.courtService.getCourtById(this.id);
-    const user = await this.userService.getUserById(this.user_id);
-
-    if (court && user) {
-      this.reservation.tennisCourt = court;
-      this.reservation.userTennis = user;
-      debugger;
-      this.reservationService.reserveCourt(this.reservation);
-    } else {
-      console.error('Court or User not found');
-    }
+    this.errorMessage = '';
+    this.successMessage = '';
+    
+    this.reservation.userTennisId = parseInt(this.user_id);
+    this.reservation.tennisCourtId = parseInt(this.court_id);
+    this.reservationService.reserveCourt(this.reservation).then(
+      () => {
+        this.successMessage = 'Reservation successful!';
+      }
+    ).catch(
+      () => {
+        this.errorMessage = 'Reservation failed. Please try again.';
+      }
+    );
+    
   }
 }

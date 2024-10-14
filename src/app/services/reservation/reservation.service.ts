@@ -27,21 +27,28 @@ export class ReservationService extends DataServiceComponent {
     this.url = environment.API_BASE_URL + this.API_ENDPOINT_EXTENSION_GET_BY_DATE_ID;
   }
 
-  public reserveCourt(reservation: ReservationElement) {
+  public reserveCourt(reservation: ReservationElement) : Promise<boolean> {
     this.getUrlCreate();
+    reservation.id = this.generateUniqueId();
     let token = this.cookiesService.get('token');
     let resp = this.create(this.url, token, reservation)
     return new Promise((resolve, reject) => {
-        resp.subscribe({
-            next: (response) => {
-                resolve(response);
-            },
-            error: (err) => {
-                alert("Error while reserving court");
-                reject(err);
-            },
-        });
+      resp.subscribe({
+        next: (response) => {
+          if (response.status === 409) {
+            reject(new Error('Conflict: Reservation already exists.'));
+          } else {
+            resolve(response);
+          }
+        },
+        error: (err) => {
+          reject(err);
+        },
+      });
     });
+  }
+  generateUniqueId(): number {
+    return Math.floor(Math.random() * Date.now());
   }
 
 }

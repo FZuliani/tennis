@@ -72,7 +72,6 @@ export class CourtService extends DataServiceComponent {
   public createCourt(court: any) {
     this.getUrlCreate();
     let token = this.cookiesService.get('token');
-    alert(this.url +'');
     let resp = this.create(this.url, token, court)
     return new Promise((resolve, reject) => {
         resp.subscribe({
